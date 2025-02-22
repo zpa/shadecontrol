@@ -29,15 +29,23 @@ Thinking about the physics in the reverse direction in a somewhat simplified way
 
 In order to have a decent model of a shade, we need to know the initial speed and the acceleration. To determine two unknowns, you need two equations. To construct them, we have to make two measurements. What we can measure easily is time needed for the shade to travel from one point to the other. So let $t_{\text{half}}$ be the time needed by the shade to travel from the highest position to halfway down, and let $t_{\text{full}}$ be the time needed by the shade to travel from the highest position to where it just touches the bottom of the opening. Then we can write the following two equations:
 
-$\frac{s}{2} = \frac{a}{2} t_{\text{half}}^2 + v_0 t_{\text{half}}$
+$\frac{s}{2} = \frac{a}{2} t_{\text{half}}^2 + v_0 t_{\text{half}}$,
 
-$s = \frac{a}{2} t_{\text{full}}^2 + v_0 t_{\text{full}}$
+$s = \frac{a}{2} t_{\text{full}}^2 + v_0 t_{\text{full}}$.
 
-We don't really care about what $s$ is, so we will assume that it equals one unit. This then gives us
+We don't really care about what $s$ is, since we only want to set shade position relative to $s$, e.g., lower (from the top) by $\frac{s}{3}$. So we will just conveniently assume that $s$ equals one unit. This then gives us
 
-$v_0 = \frac{2 - (\frac{t_{\text{full}}}{t_{\text{half}}})^2}{2 t_{\text{full}} - 2 \frac{t_{\text{full}}^2}{t_{\text{half}}}}$
+$v_0 = \frac{2 - (\frac{t_{\text{full}}}{t_{\text{half}}})^2}{2 t_{\text{full}} - 2 \frac{t_{\text{full}}^2}{t_{\text{half}}}}$,
 
 $a = \frac{1}{t_{\text{half}}^2} - 2 \frac{v_0}{t_{\text{half}}}$.
+
+Knowing these two quantities will allow us to work out the time needed to lower the shade from the top by $0 \lt x \leq 1$:
+
+$x = \frac{a}{2} t_x^2 + v_0 t_x$, and
+
+$t_x = \frac{-v_0 + \sqrt{v_0^2 + 4 \frac{a}{2} x}}{a}$,
+
+because we need the root with the lower absolute value.
 
 Each shade, therefore, should have the following properties:
  - id
@@ -45,4 +53,7 @@ Each shade, therefore, should have the following properties:
  - up code
  - stop code
  - down code
- - 
+ - $v_0$
+ - $a$
+
+However, the latter two will appear as $t_{\text{half}}$ and $t_{\text{full}}$, when presented to the user. Sanity checks when expecting user inputs: $t_{\text{full}} \gt 2 t_{\text{half}}$, $v_0 \gt 0$, and $a \lt 0$.
